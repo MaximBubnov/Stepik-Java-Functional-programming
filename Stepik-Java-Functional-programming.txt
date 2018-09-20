@@ -1,0 +1,5 @@
+###2.2 Writing simple lambda expressions
+
+Write a lambda expression that accepts two integers arguments and returns max of them. 
+
+(x,y) -> Math.max(x,y);
