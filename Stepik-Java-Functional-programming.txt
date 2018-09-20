@@ -3,3 +3,96 @@
 Write a lambda expression that accepts two integers arguments and returns max of them. 
 
 (x,y) -> Math.max(x,y);
+
+-------------------------------------------------------------------------------------------
+
+Write a lambda expression that accepts a long value and returns a next even number. 
+
+x -> x%2==0 ? x+2 : x+1;
+
+===========================================================================================================
+
+2.3 Too many arguments
+
+Write a lambda expression that accepts seven (!) string arguments and returns a string in upper case concatenated from all of them (in the order of arguments).
+
+Note. The correct solution may not work in your local environment because you don't have suitable functional interface. The testing system has the interface and can test your solution.
+
+(q, w, e, r, t, y, u) -> Stream.of(q, w, e, r, t, y, u).collect(Collectors.toList()).stream().
+                map(String::toUpperCase)
+                .reduce("", java.lang.String::concat);
+
+==============================================================================================================
+
+2.4 Calculating production of all numbers in the range
+
+Write a lambda expression that accepts two long arguments as a range borders and calculates (returns) production of all numbers in this range (inclusively). It's guaranteed that 0 <= left border <= right border. if left border == right border then the result is any border.
+
+(final long x, final long y) -> {
+
+            long sum = 1;
+
+            for (int i = (int) x; i <= y; i++) {
+
+                int s = i;
+                sum *= s;
+            }
+
+            return sum;
+        };
+  
+==================================================================================================================
+2.5 Getting distinct strings
+  
+Write a lambda expression that accepts a list of strings and returns new list of distinct strings (without repeating). The order of elements in the result list may be any (elements will be sorted by the testing system).
+
+If the input list doesn't contain any strings then the result list should be empty.
+
+(List<java.lang.String> words) -> words.stream()
+                .distinct()
+                .collect(Collectors.toList());
+                
+======================================================================================================================
+2.6 Writing closures
+
+Using closure write a lambda expression that calculates a∗x2+b∗x+c where a, b, c are context final variables. They will be available in the context during testing. Note, the result is double.
+
+x->a*Math.pow(x,2)+b*x+c;
+
+-----------------------------------------------------------------------------------------------------------------------
+
+Using closure write a lambda expression that adds prefix (before) and suffix (after) to its single string argument; prefix and suffix are final variables and will be available in the context during testing.
+
+All whitespaces on the both ends of the argument must be removed. Do not trim prefix, suffix and the result string.
+
+(x) -> { return prefix  + x.trim() + suffix;};
+
+=======================================================================================================================
+2.9 Behaviour parametrization with lambda expressions
+
+You have a class Account (number: String, balance: Long, isLocked: boolean), the list accounts of type List<Account> and the method filter(List<T> elems, Predicate<T> predicate) for filtering the given list of type T by the predicate.
+
+The class Account has the next methods: getNumber(), getBalance(), isLocked() for getting the values of the corresponding fields.
+
+Write a code for filtering the accounts list in two ways:
+
+get list with all non-empty accounts (balance > 0) and save it to the variable nonEmptyAccounts
+get all non-locked accounts with too much money (balance >= 100 000 000) and save it to the variable accountsWithTooMuchMoney
+The class Account, the list accounts (List<Account>) and the method filter(...) will be available during testing.
+
+// you need to filter List<Account> accounts
+
+List<Account> nonEmptyAccounts = accounts.stream()
+                .filter(account -> account.getBalance() > 0)
+                .collect(Collectors.toList());
+
+List<Account> accountsWithTooMuchMoney = accounts.stream()
+                .filter(account -> account.isLocked() == false)
+                .filter(account -> account.getBalance() >= 100_000_000)
+                .collect(Collectors.toList());
+
+// just an example
+// List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+// List<Integer> evenNumbers = filter(numbers, number -> number % 2 == 0);
+
+===================================================================================================================
